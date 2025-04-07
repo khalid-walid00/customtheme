@@ -31,7 +31,6 @@ function xDataproduct(product: any) {
                 });
         },
 
-        // تواصل واتساب أو مكالمة
         async priceAtCallMethod(type: 'call' | 'whatsapp') {
             this.localType = type;
             if (type === 'call') {
@@ -59,7 +58,6 @@ function xDataproduct(product: any) {
             );
         },
 
-        // تعديل الكمية
         decreaseCartItem(quantity: number) {
             if (quantity <= product?.minQuantity) return;
             this.quntity = quantity - 1;
@@ -67,8 +65,6 @@ function xDataproduct(product: any) {
         increaseCartItem(quantity: number) {
             this.quntity = quantity + 1;
         },
-
-        // تنفيذ الشراء الآن
         checkout() {
             this.loading.checkout = true;
             window.Qumra.order.checkout()
@@ -82,8 +78,7 @@ function xDataproduct(product: any) {
                     this.loading.checkout = false;
                 });
         },
-
-     
+ 
     };
 }
 
