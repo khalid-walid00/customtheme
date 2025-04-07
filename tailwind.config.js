@@ -14,11 +14,34 @@ module.exports = {
 
   ],
   theme: {
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: "1.875rem",  
+        sm: "1.875rem", 
+        md: "1.875rem", 
+        lg: "1.875rem", 
+        xl: "1.875rem", 
+        "2xl": "1.875rem", 
+      },
+      screens: {
+        xs: "467px",  
+        sm: "633px",  
+        md: "825px",  
+        lg: "1049px", 
+        xl: "1257px", 
+        "2xl": "1457px",
+      },
+    }
+    ,
     extend: {
       colors: {
         mainColor:'var(--mainColor)',
         subColor: "var(--subColor)",
-        customBlack:"#333333"
+        customBlack:"#242424",
+        customGray:"#929A9A",
+        secondaryColor:"#808080",
+        borderColor:"#E5E5E5",
       },
       order: {
         '13': '13'

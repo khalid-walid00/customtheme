@@ -11,6 +11,13 @@ const publicPath = file => path.resolve("dist", file || '');
 module.exports = {
   entry: {
     app: [asset("js/main.ts"), asset("styles/style.scss")],
+    limit: [asset("js/limit.ts")],
+    product: [asset("js/product.ts")],
+    sort: [asset("js/sort.ts")],
+    filterCategory: [asset("js/filterCategory.ts")],
+    filterPriceing: [asset("js/filterPriceing.ts")],
+    filterProperties: [asset("js/filterProperties.ts")],
+    cart: [asset("js/cart.ts")],
   },
   output: {
     path: publicPath(),
