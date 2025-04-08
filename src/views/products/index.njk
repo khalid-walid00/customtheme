@@ -45,7 +45,7 @@
         <div x-show="loading.page" class=" flex h-screen items-center justify-center ">
             <qumra-loading loading-size="24px" loading={true}></qumra-loading>
         </div>
-        <div x-show="context.products.length > 0" class=" w-full flex items-center justify-center">
+        <div x-show="context.products.length > 0" class=" w-full flex h-max items-center justify-center">
             {% include "common/static/pagination/index.njk" ignore missing %}
         </div>
     </div>

@@ -1,40 +1,26 @@
-<div class="flex items-center gap-2 justify-center" x-data="{
-    visiblePages: 4,
-    currentStartPage: 1,
-    current: filterData.pagination.currentPage || 1,
-    totalPages: filterData.pagination.totalPages,
+<script src="{{ 'pagination.js' | assets }}"></script>
+<div x-data="xDataPagination(context)" class="flex items-center gap-2 justify-center">
 
-    setPagination(number) {
-        this.current = number;
-        this.currentStartPage = Math.max(1, Math.min(number - Math.floor(this.visiblePages / 2), this.totalPages - this.visiblePages + 1));
-        filterProducts({ page: number, limit: filterData.pagination.limit });
-    },
-
-
-}">
-    <span x-effect="console.log('pagination',filterData.pagination.totalPages)"></span>
-    <span x-show="current > 1" @click="setPagination(current - 1)"
-        class="cursor-pointer border border-[#E5E5E5] h-8 w-8 flex items-center justify-center  rounded-lg">
-        <i class="fi flex items-center text-[#242424] text-sm fi-rr-angle-right"></i>
-    </span>
-
-    <template x-for="item in Array.from(
-        { length: Math.min(4, filterData.pagination.totalPages || 1) }, 
-        (_, i) => Math.max(1, 
-            Math.min((filterData.pagination.currentPage || 1) - Math.floor(4 / 2), 
-                     (filterData.pagination.totalPages || 1) - 3)
-        ) + i
-    )" :key="item">
+  <span @click="prevGroup"
+        class="cursor-pointer border border-[#E5E5E5] h-8 w-8 flex items-center justify-center rounded-lg">
+    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6.94 4L6 4.94L9.05333 8L6 11.06L6.94 12L10.94 8L6.94 4Z" fill="#242424"/>
+    </svg>
+  </span>
+<span x-effect="console.log('hasNextPage',context.pagination.hasNextPage)"></span>
+  <template x-for="item in pagesToShow" :key="item">
+    <template x-if="context.pagination.hasNextPage">
         <span @click="setPagination(item)"
-            :class="{'bg-mainColor text-white': (filterData.pagination.currentPage || 1) === item}" x-text="item"
-            class="cursor-pointer border font-bold text-[#242424] border-[#E5E5E5] h-8 w-8 flex items-center justify-center  rounded-lg">
-        </span>
+        :class="currentPage == item ? 'bg-mainColor text-white' : ''"
+        class="cursor-pointer border border-[#E5E5E5] h-8 w-8 flex items-center justify-center rounded-lg"
+        x-text="item"></span>
     </template>
+  </template>
 
-
-    <span x-show="current < totalPages && filterData.pagination.totalPages > 1 &&filterData.pagination.hasNextPage" @click="setPagination(current + 1)"
-        class="cursor-pointer border border-[#E5E5E5] h-8 w-8 flex items-center justify-center  rounded-lg">
-        <i class="fi flex items-center text-[#242424] text-sm fi-rr-angle-left"></i>
-    </span>
-
+  <span x-show="context.pagination.hasNextPage" @click="nextGroup"
+        class="cursor-pointer border border-[#E5E5E5] h-8 w-8 flex items-center justify-center rounded-lg">
+    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10.06 12L11 11.06L7.94667 8L11 4.94L10.06 4L6.06 8L10.06 12Z" fill="#242424"/>
+    </svg>
+  </span>
 </div>

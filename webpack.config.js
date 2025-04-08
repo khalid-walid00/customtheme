@@ -13,6 +13,7 @@ module.exports = {
     app: [asset("js/main.ts"), asset("styles/style.scss")],
     product: [asset("js/product.ts")],
     limit: [asset("js/limit.ts")],
+    pagination: [asset("js/pagination.ts")],
     sort: [asset("js/sort.ts")],
     filterCategory: [asset("js/filterCategory.ts")],
     filterPriceing: [asset("js/filterPriceing.ts")],

@@ -48,10 +48,10 @@
                 <!-- زر أضف إلى السلة -->
                 <button x-show="!item.privatePrice"
                     class="h-10 flex w-full cursor-pointer justify-center border-mainColor border text-mainColor rounded-mainRadius items-center gap-2"
-                    @click="addProductToCart(item._id, 1)" :disabled="window.loading.addToCart">
-                    <i x-show="!window.loading.addToCart " class="fi flex items-center fi-rr-shopping-cart"></i>
-                    <span x-show="!window.loading.addToCart ">أضف إلى السلة</span>
-                    <div x-show="window.loading.addToCart "
+                    @click="addProductToCart(item._id, 1)" :disabled="loading.addToCart">
+                    <i x-show="!loading.addToCart " class="fi flex items-center fi-rr-shopping-cart"></i>
+                    <span x-show="!loading.addToCart ">أضف إلى السلة</span>
+                    <div x-show="loading.addToCart "
                         class="w-6 h-6 flex border-2 !border-t-transparent border-mainColor rounded-full animate-spin">
                     </div>
                 </button>
@@ -62,10 +62,10 @@
                         <!-- اتصال -->
                         <button
                             class="h-8 flex w-full cursor-pointer justify-center bg-[#20B038] text-white rounded-mainRadius items-center gap-2"
-                            @click="priceAtCallMethod('call')" :disabled="priceAtCallLoadingCall">
-                            <i x-show="!priceAtCallLoadingCall" class="fi flex items-center fi-rr-phone-call"></i>
-                            <span x-show="!priceAtCallLoadingCall">اتصال</span>
-                            <div x-show="priceAtCallLoadingCall"
+                            @click="priceAtCallMethod('call')" :disabled="loading.priceAtCall">
+                            <i x-show="!loading.priceAtCall" class="fi flex items-center fi-rr-phone-call"></i>
+                            <span x-show="!loading.priceAtCall">اتصال</span>
+                            <div x-show="loading.priceAtCall"
                                 class="w-6 h-6 flex border-2 !border-t-transparent border-white rounded-full animate-spin">
                             </div>
                         </button>
@@ -73,10 +73,10 @@
                         <!-- واتساب -->
                         <button
                             class="h-8 flex w-full cursor-pointer justify-center bg-[#2899F3] text-white rounded-mainRadius items-center gap-2"
-                            @click="priceAtCallMethod('whatsapp')" :disabled="priceAtCallLoadingWhatsApp">
-                            <i x-show="!priceAtCallLoadingWhatsApp" class="fi flex items-center fi-rr-whatsapp"></i>
-                            <span x-show="!priceAtCallLoadingWhatsApp">واتساب</span>
-                            <div x-show="priceAtCallLoadingWhatsApp"
+                            @click="priceAtCallMethod('whatsapp')" :disabled="loading.priceAtCallWhatsApp">
+                            <i x-show="!loading.priceAtCallWhatsApp" class="fi flex items-center fi-rr-whatsapp"></i>
+                            <span x-show="!loading.priceAtCallWhatsApp">واتساب</span>
+                            <div x-show="loading.priceAtCallWhatsApp"
                                 class="w-6 h-6 flex border-2 !border-t-transparent border-white rounded-full animate-spin">
                             </div>
                         </button>
