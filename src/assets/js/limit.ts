@@ -19,7 +19,7 @@ function xDataLimit() {
       Qumra.products.setLimit(option.value).then((res: any) => {
         window.updateLoading('page', false);
         window.toggleModal({ type: "sort", open: false });
-        window.updateContext({ products: res.data.products });
+        window.updateContext({ products: res.data.products, pagination: res.data.pagination });
       }).catch((err: any) => {
         console.error("setLimit error", err);
       }

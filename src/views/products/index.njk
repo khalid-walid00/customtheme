@@ -13,15 +13,15 @@
         </div>
 
         <div class=" flex justify-between w-full ">
-            <div class=" flex md:flex-row flex-col items-center gap-6">
+            <div class=" flex md:flex-row flex-col items-center gap-2 md:gap-6">
                 <div class=" flex items-center gap-2">
-                    <p class=" text-customGray">
+                    <p class=" w-16 flex text-customGray">
                         فرز حسب :
                     </p>
                     {% include "common/static/sort/index.njk" ignore missing %}
                 </div>
                 <div class=" flex items-center gap-2">
-                    <p class=" text-customGray">
+                    <p class="w-16 text-customGray">
                         عرض :
                     </p>
                     {% include "common/static/limit/index.njk" ignore missing %}
