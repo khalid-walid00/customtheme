@@ -13,10 +13,12 @@
                 </div>
             </div>
             <div class=" flex items-center gap-6">
-                <a :href="/customer/login?redirect_url=window.location.href" class=" flex items-center gap-2">
+                <a :href="customer && typeof customer === 'object' && Object.keys(customer).length > 0 ? `${data?.app?.url}/customer/logout?redirect_url=${window.location.href}` : `${data?.app?.url}/customer/login?redirect_url=${window.location.href}`"
+                    class="flex items-center gap-2">
                     <i class="fi fi-rr-circle-user text-white text-xl"></i>
-                    <p class=" text-sm font-bold text-white">تسجيل الدخول</p>
-                </a>
+                    <p x-text="customer && typeof customer === 'object' && Object.keys(customer).length > 0 ? 'تسجيل الخروج' : 'تسجيل الدخول'"
+                       class="text-sm font-bold text-white"></p>
+                 </a>
                 <div class=" flex items-center gap-2">
                     <i class="fi fi-rr-interrogation text-white text-xl"></i>
                     <p class=" text-sm font-bold text-white">مساعدة</p>
@@ -31,10 +33,10 @@
                 class="cursor-pointer  w-10 h-10 rounded-full  md:hidden flex  items-center justify-center">
                 <i class="fi fi-rr-menu-burger text-white md:text-[28px] text-2xl"></i>
             </div>
-            <img class="md:w-20 w-14  object-contain" src={{global.app.logoUrl}} alt="...">
+            <img class="md:w-20 w-14  object-contain" :src="data.app.logoUrl" alt="...">
             <div class="w-7/12 md:flex hidden  items-center gap-6">
                 <div class=" w-full bg-white hidden md:flex rounded-full h-[60px] py-[5px] px-[7px] items-center">
-                    <input :value="window.__qumra__?.context.search?.q" x-model="search" placeholder="ابحث هنا..."
+                    <input :value="context.search?.q" x-model="search" placeholder="ابحث هنا..."
                         class="flex-1 outline-none h-full px-2 bg-white rounded-full" type="text">
                     <div x-on:click="window.setSearch(search)"
                         class=" flex h-[50px] bg-mainColor cursor-pointer w-[50px] rounded-full items-center justify-center">
@@ -46,12 +48,13 @@
                     <i class="fi md:text-[28px] text-2xl text-mainColor fi-rr-phone-call"></i>
                     <div class="flex flex-col gap-1">
                         <p class=" text-sm text-nowrap text-white">دعم فني متاح 24/7</p>
-                        <p class=" font-bold text-nowrap text-white">01078787878+</p>
+                        <p x-text="data.app.socialMedia.phone" class=" font-bold text-nowrap text-white"></p>
                     </div>
                 </div>
             </div>
             <div class=" flex items-center gap-3">
-                <div q-toggle="search" style="background-color: color-mix(in srgb, {{global.app.settings.subColor}}, white 15%)"
+                <div q-toggle="search"
+                    style="background-color: color-mix(in srgb, {{global.app.settings.subColor}}, white 15%)"
                     class="cursor-pointer w-10 h-10  rounded-full flex md:hidden items-center justify-center">
                     <i class="fi md:text-[28px] text-2xl text-white fi-rr-search"></i>
                 </div>
