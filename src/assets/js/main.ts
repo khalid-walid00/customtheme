@@ -15,11 +15,12 @@ function GlobalState(): GlobalStateInterface {
 		...window.__qumra__,
 		loading: {
 			page: false,
-			addToCart: false,
 			reedemCode: false,
 			cart: false,
 			checkout: false,
-			coupon: false
+			coupon: false,
+			addToCart: false,
+            buyNow: false,
 		},
 		currency:window.__qumra__.data.app.currency.currencySymbol,
 		modal: {

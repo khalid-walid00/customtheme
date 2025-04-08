@@ -48,10 +48,10 @@
                 <!-- زر أضف إلى السلة -->
                 <button x-show="!item.privatePrice"
                     class="h-10 flex w-full cursor-pointer justify-center border-mainColor border text-mainColor rounded-mainRadius items-center gap-2"
-                    @click="addToCart(item._id, 1)" :disabled="addToCartLoading">
-                    <i x-show="!addToCartLoading " class="fi flex items-center fi-rr-shopping-cart"></i>
-                    <span x-show="!addToCartLoading ">أضف إلى السلة</span>
-                    <div x-show="addToCartLoading "
+                    @click="addProductToCart(item._id, 1)" :disabled="window.loading.addToCart">
+                    <i x-show="!window.loading.addToCart " class="fi flex items-center fi-rr-shopping-cart"></i>
+                    <span x-show="!window.loading.addToCart ">أضف إلى السلة</span>
+                    <div x-show="window.loading.addToCart "
                         class="w-6 h-6 flex border-2 !border-t-transparent border-mainColor rounded-full animate-spin">
                     </div>
                 </button>

@@ -26,14 +26,12 @@
 
         <!-- تفاصيل المنتج -->
         <div class="md:col-span-5">
-            <form  class="flex flex-col gap-8" enctype="multipart/form-data" method="post"
-                onsubmit="return window.Qumra.forms.submit('product', event)">
+            <form class="flex flex-col gap-8" enctype="multipart/form-data" method="post" id="productForm">
                 <input type="hidden" name="product" :value="context.product._id">
-                   <span x-effect="console.log('xDataproduct loaded')"></span>
                 <div class="flex flex-col gap-2">
                     <h1 class="text-xl text-customGray break-all" x-text="context?.product?.category?.title"></h1>
                     <p class="text-2xl font-bold text-customBlack break-all" x-text="context.product.title"></p>
-                  </div>
+                </div>
 
                 <!-- تقييم -->
                 <div class="flex gap-4 items-center">
@@ -68,7 +66,7 @@
                         <div x-text="context.product.status === 'AVAILABLE' ? 'متوفر في المعرض' : 'غير متوفر'"></div>
                     </div>
                 </div>
-
+                <span x-effect="console.log('addToCarloadingt',loading.addToCart)"></span>
                 <!-- المحتوى -->
                 <div class="text-sm text-subColor whitespace-wrap break-words" x-html="context.product.content"></div>
 
@@ -81,7 +79,7 @@
                     </qumra-product-options>
                 </div>
                 {% endif %}
-                <span x-effect="console.log('addToCart',loading.addToCart)"></span>
+                <span x-effect="console.log('loadingkhalid',loading.addToCart)"></span>
                 <!-- أزرار السلة والشراء -->
                 <div class="flex flex-col gap-4">
                     <div x-show="!context.product?.privatePrice" class="font-bold flex flex-col items-center gap-3">
@@ -93,9 +91,8 @@
                                     <i class="fi text-lg fi-rr-minus-small"></i>
                                 </span>
 
-                                <input type="number" name="quantity" x-model="quntity"
-                                    class="w-full h-full bg-[#F3F3F3] rounded-mainRadius flex items-center justify-center"
-                                    x-text="quntity"></input>
+                                <input name="quantity" step="1" :value="quntity" min="1"
+                                    class="w-full h-full bg-[#F3F3F3] text-center rounded-mainRadius flex items-center justify-center"></input>
 
                                 <span
                                     class="flex w-full h-full items-center justify-center border rounded-mainRadius border-[#E5E5E5] cursor-pointer"
@@ -105,81 +102,84 @@
 
                             </div>
 
-                            <button aria-label="إضافة إلى السلة" type="submit" name="addToCart"
-                                        value="addToCart"
-                                class="flex-1 border-[#262E3A] border rounded-mainRadius flex justify-center items-center px-4 h-[50px]">
-                                <template x-if="loading.addToCart">
-                                    <qumra-loading loading-size="20px" loading="true"></qumra-loading>
-                                </template>
-                                <template x-if="!loading.addToCart">
-                                    <div class="text-[#262E3A] flex gap-2 items-center font-bold justify-center">
-                                        <i class="fi fi-rr-shopping-cart"></i>
-                                        اضافة للسلة
-                                    </div>
-                                </template>
+                            <button id="addToCartBtn" type="submit" name="addToCart" value="addToCart"
+                                class="flex-1 border-[#262E3A] border rounded-mainRadius flex justify-center items-center px-4 h-[50px] gap-2">
+
+                                <span id="addToCartLoader" style="display: none;">
+                                    <svg class="animate-spin h-5 w-5 text-mainColor" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                            stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+                                    </svg>
+                                </span>
+
+                                <span id="addToCartText">إضافة للسلة</span>
                             </button>
+
                         </div>
 
-                        <button type="submit" name="buyNow" value="buyNow"
-                            class="bg-mainColor w-full text-white font-bold rounded-mainRadius flex items-center px-4 h-[50px] justify-center">
-                            <span x-show="!loading.checkout">اشترى الان</span>
-                            <div x-show="loading.checkout" class="flex justify-center">
-                                <qumra-loading color="white" loading-size="20px" loading="true"></qumra-loading>
-                            </div>
-                        </button>
+                        <button id="buyNowBtn" aria-label="اشتري الان" type="submit" name="buyNow" value="buyNow"
+                        class="bg-mainColor w-full text-white font-bold rounded-mainRadius flex items-center px-4 h-[50px] justify-center gap-2">
+                        
+                        <span id="buyNowText">اشترى الآن</span>
+                    
+                        <span id="buyNowLoader" style="display: none;">
+                            <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8v8z" />
+                            </svg>
+                        </span>
+                    </button>
+                    
                     </div>
                     <template x-if="context.product?.privatePrice">
                         <div class="flex items-center justify-between gap-3 w-full">
                             <!-- زرار واتساب -->
-                            <button
-                                type="button"
-                                @click="priceAtCallMethod('whatsapp')"
-                                aria-label="تواصل الان"
+                            <button type="button" @click="priceAtCallMethod('whatsapp')" aria-label="تواصل الان"
                                 value="buyNow"
-                                class="bg-mainColor w-full flex items-center px-4 h-[50px] justify-center text-white font-bold rounded-mainRadius"
-                            >
+                                class="bg-mainColor w-full flex items-center px-4 h-[50px] justify-center text-white font-bold rounded-mainRadius">
                                 <template x-if="!(loading.priceAtCallWhatsApp && localType === 'whatsapp')">
                                     <div class="flex items-center w-full gap-2 h-[50px] justify-center">
-                                        <svg width="20" height="20" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <svg width="20" height="20" viewBox="0 0 19 19" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M9.66699 2.04797C5.32472 2.04797 1.79199 5.52265 1.79199 9.79349C1.79199 11.1247 2.14108 12.4377 2.80157 13.5905C2.89854 13.7597 2.92397 13.9536 2.87323 14.1362C2.68029 14.8302 2.37497 15.943 2.18225 16.6462C2.13028 16.8355 2.16864 17.0333 2.28722 17.1888C2.40478 17.3429 2.5895 17.4349 2.78132 17.4349C2.8352 17.4349 2.88932 17.4278 2.94208 17.4139C3.69347 17.216 5.05584 16.8603 5.73759 16.7008C5.79069 16.6883 5.84525 16.682 5.89959 16.682C6.00444 16.682 6.10952 16.7059 6.20357 16.7513C7.2866 17.2737 8.45188 17.5387 9.66699 17.5387C14.0093 17.5387 17.542 14.0641 17.542 9.79315C17.542 5.5222 14.0093 2.04797 9.66699 2.04797Z"
-                                                fill="white"
-                                            />
+                                                fill="white" />
                                         </svg>
                                         تواصل الان whatsapp
                                     </div>
                                 </template>
-                    
+
                                 <template x-if="loading.priceAtCallWhatsApp && localType === 'whatsapp'">
-                                    <qumra-loading borderType="dashed" color="white" loading-size="20px" loading="true"></qumra-loading>
+                                    <qumra-loading borderType="dashed" color="white" loading-size="20px"
+                                        loading="true"></qumra-loading>
                                 </template>
                             </button>
-                    
+
                             <!-- زرار الاتصال -->
-                            <button
-                                type="button"
-                                @click="priceAtCallMethod('call');"
-                                x-show="data?.app?.socialMedia?.phone"
-                                target="_blank"
-                                aria-label="تواصل الان"
+                            <button type="button" @click="priceAtCallMethod('call');"
+                                x-show="data?.app?.socialMedia?.phone" target="_blank" aria-label="تواصل الان"
                                 value="buyNow"
-                                class="bg-mainColor w-full text-white font-bold rounded-mainRadius flex items-center px-4 h-[50px] justify-center"
-                            >
+                                class="bg-mainColor w-full text-white font-bold rounded-mainRadius flex items-center px-4 h-[50px] justify-center">
                                 <template x-if="!(loading.priceAtCall && localType === 'call')">
                                     <div class="flex items-center h-[50px] w-full gap-2 justify-center">
                                         <i class="fi flex items-center fi-rr-phone-call text-white"></i>
                                         تواصل الان phone
                                     </div>
                                 </template>
-                    
+
                                 <template x-if="loading.priceAtCall && localType === 'call'">
-                                    <qumra-loading borderType="dashed" color="white" loading-size="20px" loading="true"></qumra-loading>
+                                    <qumra-loading borderType="dashed" color="white" loading-size="20px"
+                                        loading="true"></qumra-loading>
                                 </template>
                             </button>
                         </div>
                     </template>
-                    
-                    
+
+
                 </div>
             </form>
         </div>
