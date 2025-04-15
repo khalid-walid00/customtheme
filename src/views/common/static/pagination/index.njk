@@ -1,24 +1,26 @@
 <script src="{{ 'pagination.js' | assets }}"></script>
 <div x-data="xDataPagination(context)" class="flex items-center gap-2 justify-center">
-
-  <span x-show="context.pagination.totalPages > 4" @click="prevGroup"
-        class="cursor-pointer border border-[#E5E5E5] h-8 w-8 flex items-center justify-center rounded-lg">
-    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M6.94 4L6 4.94L9.05333 8L6 11.06L6.94 12L10.94 8L6.94 4Z" fill="#242424"/>
-    </svg>
+  <span
+    x-show="currentPage > 1"
+    @click="prevPage"
+    class="cursor-pointer border border-[#E5E5E5] h-8 w-8 flex items-center justify-center rounded-lg"
+  >
+  <i class="fi fi-rr-angle-small-right"></i>
   </span>
-  <span x-effect="console.log('hasPrevPage',context.pagination.hasPrevPage)"></span>
-<span x-effect="console.log('hasNextPage',context.pagination.hasNextPage)"></span>
-  <template x-for="item in context.pagination.totalPages>4 ? 4 : context.pagination.totalPages" :key="item">
-    <span @click="setPagination(item)"
-          :class="currentPage == item ? 'bg-mainColor text-white' : ''"
-          class="cursor-pointer border border-[#E5E5E5] h-8 w-8 flex items-center justify-center rounded-lg"
-          x-text="item"></span>
+
+  <template x-for="page in pagesToShow" :key="page">
+    <span
+      @click="setPagination(page)"
+      :class="currentPage === page ? 'bg-mainColor text-white' : ''"
+      class="cursor-pointer border border-[#E5E5E5] h-8 w-8 flex items-center justify-center rounded-lg"
+      x-text="page"
+    ></span>
   </template>
-  <span x-show="context.pagination.hasNextPage && context.pagination.totalPages > 4" @click="nextGroup"
-        class="cursor-pointer border border-[#E5E5E5] h-8 w-8 flex items-center justify-center rounded-lg">
-    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M10.06 12L11 11.06L7.94667 8L11 4.94L10.06 4L6.06 8L10.06 12Z" fill="#242424"/>
-    </svg>
+  <span
+    x-show="currentPage < context.pagination.totalPages"
+    @click="nextPage"
+    class="cursor-pointer border border-[#E5E5E5] h-8 w-8 flex items-center justify-center rounded-lg"
+  >
+  <i class="fi fi-rr-angle-small-left"></i>
   </span>
 </div>

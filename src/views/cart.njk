@@ -23,8 +23,7 @@
                                 <tr class="h-[100px] border-b border-borderColor">
                                     <td class="w-[259px] overflow-hidden">
                                         <div class=" flex items-center break-words gap-3">
-                                            <button @click="clearCartItem(item._id)"
-                                                aria-label="الحذف من السلة">
+                                            <button @click="clearCartItem(item._id)" aria-label="الحذف من السلة">
                                                 <i class="fi text-2xl  text-customBlack fi-rr-cross-small"></i>
                                             </button>
                                             <img :src="item.product.images[0].imageUrl"
@@ -41,15 +40,19 @@
                                         </span>
                                     </td>
                                     <td>
-                                            <div class="flex items-center gap-2">
-                                                <span
-                                                    class=" flex w-8 h-8 items-center justify-center border rounded-mainRadius border-[#E5E5E5] cursor-pointer"
-                                                    @click="decreaseCartItem(item._id,item.quantity)"><i class="fi fi-rr-minus-small"></i></span>
-                                                    <span  class="w-8 h-8 bg-[#F3F3F3] rounded-mainRadius flex items-center justify-center" x-text="item.quantity"></span>
-                                                <span 
-                                                    class=" flex w-8 h-8 items-center justify-center border rounded-mainRadius border-[#E5E5E5] cursor-pointer"
-                                                    @click="increaseCartItem(item._id, item.quantity)"><i class="fi fi-rr-plus-small"></i></span>
-                                            </div>
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class=" flex w-8 h-8 items-center justify-center border rounded-mainRadius border-[#E5E5E5] cursor-pointer"
+                                                @click="decreaseCartItem(item._id,item.quantity)"><i
+                                                    class="fi fi-rr-minus-small"></i></span>
+                                            <span
+                                                class="w-8 h-8 bg-[#F3F3F3] rounded-mainRadius flex items-center justify-center"
+                                                x-text="item.quantity"></span>
+                                            <span
+                                                class=" flex w-8 h-8 items-center justify-center border rounded-mainRadius border-[#E5E5E5] cursor-pointer"
+                                                @click="increaseCartItem(item._id, item.quantity)"><i
+                                                    class="fi fi-rr-plus-small"></i></span>
+                                        </div>
                                     </td>
                                     <td>
                                         <span x-show="item?.totalPriceForItem" class=" font-bold text-mainColor"
@@ -80,18 +83,6 @@
                                     <span x-text="item.product.title" class=" text-customBlack"></span>
                                 </div>
                                 <div class=" border-t py-[14px] flex items-center gap-4 ">
-                                    <span class=" font-bold">الكمية :</span>
-                                        <div class="  grid w-[112px] grid-cols-3  h-8 items-center gap-2">
-                                            <span
-                                                class=" flex w-full h-full items-center justify-center border rounded-mainRadius border-[#E5E5E5] cursor-pointer"
-                                                @click="decreaseCartItem(item._id,item.quantity)"><i class="fi fi-rr-minus-small"></i></span>
-                                                <span  class="w-full h-full bg-[#F3F3F3] rounded-mainRadius flex items-center justify-center" x-text="item.quantity"></span>
-                                            <span 
-                                                class=" flex w-full h-full items-center justify-center border rounded-mainRadius border-[#E5E5E5] cursor-pointer"
-                                                @click="increaseCartItem(item._id, item.quantity)"><i class="fi fi-rr-plus-small"></i></span>
-                                        </div>
-                                </div>
-                                <div class=" border-t py-[14px] flex items-center gap-4 ">
                                     <span class=" font-bold">السعر :</span>
                                     <span x-show="item?.priceAfterDiscount" class=" text-mainColor"
                                         x-text="item?.priceAfterDiscount">
@@ -99,7 +90,24 @@
                                     </span>
                                 </div>
                                 <div class=" border-t py-[14px] flex items-center gap-4 ">
-                                    <span class=" font-bold">المنتج :</span>
+                                    <span class=" font-bold">الكمية :</span>
+                                    <div class="  grid w-[112px] grid-cols-3  h-8 items-center gap-2">
+                                        <span
+                                            class=" flex w-full h-full items-center justify-center border rounded-mainRadius border-[#E5E5E5] cursor-pointer"
+                                            @click="decreaseCartItem(item._id,item.quantity)"><i
+                                                class="fi fi-rr-minus-small"></i></span>
+                                        <span
+                                            class="w-full h-full bg-[#F3F3F3] rounded-mainRadius flex items-center justify-center"
+                                            x-text="item.quantity"></span>
+                                        <span
+                                            class=" flex w-full h-full items-center justify-center border rounded-mainRadius border-[#E5E5E5] cursor-pointer"
+                                            @click="increaseCartItem(item._id, item.quantity)"><i
+                                                class="fi fi-rr-plus-small"></i></span>
+                                    </div>
+                                </div>
+                             
+                                <div class=" border-t py-[14px] flex items-center gap-4 ">
+                                    <span class=" font-bold">الاجمالي :</span>
                                     <span x-show="item?.totalPriceForItem" class=" text-mainColor"
                                         x-text="item?.totalPriceForItem">
                                         0
@@ -117,28 +125,28 @@
                     <div class=" flex flex-col gap-4">
                         <div class=" flex justify-between">
                             <span class=" text-xl text-customGray">اجمالي المنتجات</span>
-                            <span x-show="cart?.totalProducts" class="text-xl text-[#333333]"
+                            <span x-show="cart?.totalProducts" class="text-xl text-black"
                                 x-text="cart?.totalProducts">
                                 0
                             </span>
                         </div>
                         <div class=" flex justify-between">
                             <span class="text-customGray text-xl ">توفير</span>
-                            <span class="text-[#333333] text-xl" x-text="cart?.productDiscount">
+                            <span class="text-black text-xl" x-text="cart?.productDiscount">
                                 0
                             </span>
                         </div>
                         <div class=" flex justify-between border-t border-borderColor">
-                            <span class="text-customGray text-xl ">الإجمالي</span>
-                            <span class="text-[#333333] text-xl" x-text="cart?.totalProductsAfterDiscount">
+                            <span class="text-black font-bold text-2xl ">الإجمالي</span>
+                            <span class="text-black text-xl" x-text="cart?.totalProductsAfterDiscount">
                                 0
                             </span>
                         </div>
                     </div>
 
                     <button :disabled="loading.checkout" aria-label="اتمام الطلب" @click="checkout()"
-                        class="py-2  rounded-mainRadius border border-mainColor h-[56px] text-mainColor w-full">
-                        <span x-show="!loading.checkout" class="text-mainColor"> اتمام الطلب</span>
+                        class="py-2  rounded-mainRadius bg-mainColor h-[56px] text-mainColor w-full">
+                        <span x-show="!loading.checkout" class="text-white text-xl font-bold"> اتمام الطلب</span>
                         <template x-if="loading.checkout">
                             <div class=" flex justify-center ">
                                 <qumra-loading color={data.app.settings.mainColor} loading-size="20px"
@@ -149,43 +157,6 @@
 
                 </div>
             </div>
-        </div>
-
-
-        <div x-show="context.relatedProducts.results.length > 0" class=" flex flex-col gap-6 ">
-            <div class="flex justify-between">
-                <h2 class=" font-bold text-2xl text-customBlack">منتجات مشابهة</h2>
-                <a aria-label="moreofProductmore" href="/latest" class=" font-bold text-md text-mainColor">عرض
-                    المزيد</a>
-            </div>
-            {# <qumra-animation always="true" animation="slide-bottom fade"> #}
-                <div class="relative w-full">
-                    <qumra-slider-multi :navigation-color="data.app.settings.mainColor" :slides-per-view="5"
-                        :space-between="10">
-                        <template x-for="item in context.relatedProducts.results" :key="item.id">
-                            <qumra-slider-item>
-                                <qumra-product-card :product="JSON.stringify(item)"></qumra-product-card>
-                            </qumra-slider-item>
-                        </template>
-
-                    </qumra-slider-multi>
-                </div>
-                {#
-            </qumra-animation> #}
-
-        </div>
-
-
-        <div class="relative w-full">
-            <qumra-slider-multi :navigation-color="data.app.settings.mainColor" :slides-per-view="5"
-                :space-between="10">
-                <template x-for="item in context.relatedProducts.results" :key="item.id">
-                    <qumra-slider-item>
-                        <qumra-product-card :product="JSON.stringify(item)"></qumra-product-card>
-                    </qumra-slider-item>
-                </template>
-
-            </qumra-slider-multi>
         </div>
 
     </div>

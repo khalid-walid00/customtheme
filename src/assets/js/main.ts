@@ -1,4 +1,4 @@
-document.addEventListener("QumraGearboxReady", () => {
+document.addEventListener("DOMContentLoaded", () => {
 	(document?.getElementById('spinner-container') as any).style.display = 'none';
 });
 interface GlobalStateInterface {
@@ -69,5 +69,17 @@ function GlobalState(): GlobalStateInterface {
 		},
 	};
 }
+document.addEventListener("DOMContentLoaded", () => {
+	if (Qumra && Qumra.events) {
+		window.Qumra.events.on('addToCart' as any, (data: any) => window.updateCart(data));
 
+	} else {
+		console.error("Qumra is not defined or events are not available.");
+	}
+})
+window.addEventListener("pageshow", function (event) {
+	if (event.persisted) {
+	  window.updateCart(JSON.parse(localStorage.getItem('cart') || '{}'));
+	}
+  });
 window.GlobalState = GlobalState;

@@ -1,5 +1,5 @@
 <template x-for="item in context.products" :key="item._id">
-    <div class="flex flex-col gap-3 pb-4 h-full rounded-lg" x-data="xDataproduct()"
+    <div class="flex flex-col gap-3 pb-4 h-full rounded-lg" x-data="xDataproduct(item)"
         style="box-shadow: 0px 0px 10px #E4E4E4">
         <a :href="item.slug ? `/product/${item.slug}` : '#'">
             <div class="overflow-hidden relative rounded-t-lg">
@@ -32,14 +32,14 @@
 
                 <span x-show="item.rate === 0" class="text-[#6D7676] text-xs">لا يوجد تقيمات</span>
 
-                <div class="flex flex-wrap items-center gap-x-1">
-                    <div x-show="item.priceAfterDiscount > 0" class="flex items-center">
+                <div class="flex flex-col gap-1">
+                    <div x-show="item.discount > 0" class="flex items-center">
                         <span x-text="item.priceAfterDiscount" class="text-mainColor text-lg font-bold"></span>
                         <span x-text="data.app.currency.currencySymbol" class="text-mainColor text-lg font-bold"></span>
                     </div>
-                    <div x-show="item.discount > 0" class="flex items-center gap-1">
-                        <span x-text="item.price" class="line-through text-[#6D7676] text-sm"></span>
-                        <span x-text="data.app.currency.currencySymbol" class="text-[#6D7676] text-lg font-bold"></span>
+                    <div class="flex items-center gap-1">
+                        <span x-text="item.price" :class="item.discount > 0 ? 'line-through  text-[#6D7676]' : ' text-mainColor'" class=" text-sm"></span>
+                        <span x-text="data.app.currency.currencySymbol" :class="item.discount > 0 ? 'line-through  text-[#6D7676]' : ' text-mainColor'" class=" text-lg font-bold"></span>
                     </div>
                 </div>
             </a>

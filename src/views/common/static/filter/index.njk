@@ -18,11 +18,33 @@
     <!-- Filter Content -->
     <div class="flex flex-col gap-4 px-6 overflow-y-auto"
       x-data="xDataPropertiesFilter()">
-
-      {# <div x-show="decodeURIComponent(window.location.pathname.split('/')[1]) == category"> #}
+      <div class=" flex gap-4">
+        <div class="pb-1 flex gap-2 scrollbar-custom overflow-auto flex-1">
+         <template x-for="item in selectedFilters.colors ">
+           <div class=" flex gap-1">
+             <i  @click="addFilter('colors', item)" class="fi cursor-pointer fi-rr-cross-small"></i>
+             <span x-text="item.title" class=" text-sm font-semibold  text-nowrap"></span>
+           </div>
+         </template>
+         <template x-for="item in FilterCategoryItems ">
+           <div class=" flex gap-1">
+             <i @click="toggleFilterCategory(item)" class="fi cursor-pointer fi-rr-cross-small"></i>
+             <span x-text="item.title" class=" text-sm font-semibold  text-nowrap"></span>
+           </div>
+         </template>
+         <template x-for="item in selectedFilters.texts ">
+           <div class=" flex gap-1">
+             <i  @click="addFilter('texts', item)" class="fi cursor-pointer fi-rr-cross-small"></i>
+             <span x-text="item.title" class=" text-sm font-semibold  text-nowrap"></span>
+           </div>
+         </template>
+        </div>
+        <div x-show="selectedFilters.colors.length || FilterCategoryItems.length || selectedFilters.texts.length" @click="clearAllFilters()" class="flex items-center cursor-pointer gap-1">
+          <i class="fi fi-rr-cross-small  text-red-600"></i>
+          <span class=" text-red-600 font-semibold">الغاء الكل</span>
+        </div>
+     </div>
       {% include "../filterCategory/index.njk" ignore missing %}
-      {# </div> #}
-
       {% include "../priceing/index.njk" ignore missing %}
       {% include "../filterColor/index.njk" ignore missing %}
       {% include "../filterText/index.njk" ignore missing %}

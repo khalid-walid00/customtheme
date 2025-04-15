@@ -1,35 +1,45 @@
 export function xDataPagination(context: any) {
   return {
-    currentGroup: 1,
-    pagesPerGroup: 4,
-    totalGroups: Math.ceil(context.pagination.totalPages / 4),
-    currentPage: 1,
+    currentPage: context.pagination.page || 1,
+    pagesPerView: 4,
+
+    get startPage() {
+      let half = Math.floor(this.pagesPerView / 2);
+      let start = this.currentPage - half;
+      if (start < 1) start = 1;
+      let end = start + this.pagesPerView - 1;
+      if (end > context.pagination.totalPages) {
+        end = context.pagination.totalPages;
+        start = Math.max(1, end - this.pagesPerView + 1);
+      }
+      return start;
+    },
+
+    get pagesToShow() {
+      return Array.from(
+        { length: this.pagesPerView },
+        (_, i) => this.startPage + i
+      ).filter((p) => p <= context.pagination.totalPages);
+    },
 
     setPagination(page: number) {
-      window.updateLoading('page', true);
-      if (page >= 1 && page <= context.pagination.totalPages) {
-        this.currentGroup = Math.ceil(page / this.pagesPerGroup);
-        Qumra.products.setPage(page).then((res: any) => {
-          window.updateLoading('page', false);
-          this.totalGroups = Math.ceil(res.data.pagination.totalPages / this.pagesPerGroup);
-          this.currentPage = res.data.pagination.page;
-          window.updateContext({ products: res.data.products});
-        }).catch((err: any) => {
-          console.error("setLimit error", err);
-        });
-      }
+      if (page < 1 || page > context.pagination.totalPages) return;
+      this.currentPage = page;
+      window.updateLoading("page", true);
+
+      Qumra.products.setPage(page).then((res: any) => {
+        this.currentPage = res.data.pagination.page;
+        window.updateContext({ products: res.data.products });
+        window.updateLoading("page", false);
+      });
     },
 
-    nextGroup() {
-      if (this.currentGroup < this.totalGroups) {
-        this.currentGroup++;
-      }
+    nextPage() {
+      this.setPagination(this.currentPage + 1);
     },
 
-    prevGroup() {
-      if (this.currentGroup > 1) {
-        this.currentGroup--;
-      }
+    prevPage() {
+      this.setPagination(this.currentPage - 1);
     }
   };
 }

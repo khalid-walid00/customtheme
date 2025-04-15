@@ -14,10 +14,10 @@
                 <img class="h-full w-full rounded-lg border border-borderColor"
                     style="object-fit: contain; height: 356px;" :src="context.product.images[imgSelected].imageUrl"
                     alt="صورة المنتج" loading="lazy">
-                <div class="grid grid-cols-3 gap-4 min-h-[100px] md:min-h-[120px]">
+                <div class="flex w-full overscroll-auto scrollbar-custom gap-4 ">
                     <template x-for="(image, index) in context.product.images.slice(0, 3)" :key="index">
                         <img @click="imgSelected = index"
-                            class="h-full w-full rounded-lg border object-cover cursor-pointer" :src="image.imageUrl"
+                            class=" w-[60px] h-[60px] md:w-[80px] md:h-[80px] rounded-lg border object-cover cursor-pointer" :src="image.imageUrl"
                             :class="imgSelected === index ? 'border-mainColor' : 'border-borderColor'">
                     </template>
                 </div>
@@ -120,20 +120,20 @@
                         </div>
 
                         <button id="buyNowBtn" aria-label="اشتري الان" type="submit" name="buyNow" value="buyNow"
-                        class="bg-mainColor w-full text-white font-bold rounded-mainRadius flex items-center px-4 h-[50px] justify-center gap-2">
-                        
-                        <span id="buyNowText">اشترى الآن</span>
-                    
-                        <span id="buyNowLoader" style="display: none;">
-                            <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 24 24">
-                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-                                <path class="opacity-75" fill="currentColor"
-                                    d="M4 12a8 8 0 018-8v8z" />
-                            </svg>
-                        </span>
-                    </button>
-                    
+                            class="bg-mainColor w-full text-white font-bold rounded-mainRadius flex items-center px-4 h-[50px] justify-center gap-2">
+
+                            <span id="buyNowText">اشترى الآن</span>
+
+                            <span id="buyNowLoader" style="display: none;">
+                                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                        stroke-width="4" />
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                                </svg>
+                            </span>
+                        </button>
+
                     </div>
                     <template x-if="context.product?.privatePrice">
                         <div class="flex items-center justify-between gap-3 w-full">
@@ -189,19 +189,25 @@
             <div class="py-4 px-6 font-bold text-xl border-b text-customBlack border-borderColor">
                 منتجات قد تعجبك
             </div>
-            <div class="flex flex-col p-6 gap-6">
-                <template x-for="item in context.relatedProducts.results.slice(0, 4)" :key="item.id">
-                    <div class="flex items-center gap-3">
+            <div class="flex flex-col p-6 pt-0 gap-6">
+
+                <template x-show="context.relatedProducts.results.length > 0" x-for="item in context.relatedProducts.results.slice(0, 4)" :key="item.id">
+                    <a :href="`/product/${item.slug}`" class="flex items-center gap-3">
                         <img class="w-[55px] h-[55px] object-contain rounded" :src="item.images[0].imageUrl" alt="">
                         <div>
-                            <p class="font-bold  break-words" x-text="item.title"></p>
+                            <p class="font-bold break-words" x-text="item.title"></p>
                             <div class="flex items-center text-customGray">
                                 <p x-text="item.priceAfterDiscount"></p>
                                 <span x-text="currency"></span>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </template>
+
+                <div class=" flex flex-col items-center gap-4" x-show="context.relatedProducts.results.length == 0">
+                    <i class="fi fi-rr-drawer-empty text-2xl"></i>
+            <p>لا يوجد منتجات مرتبطة بهذا المنتج</p>
+                </div>
             </div>
         </div>
     </div>

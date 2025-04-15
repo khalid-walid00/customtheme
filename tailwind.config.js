@@ -39,7 +39,7 @@ module.exports = {
         mainColor:'var(--mainColor)',
         subColor: "var(--subColor)",
         customBlack:"#242424",
-        customGray:"#929A9A",
+        customGray:"#777777",
         secondaryColor:"#808080",
         borderColor:"#E5E5E5",
       },

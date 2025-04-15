@@ -17,11 +17,10 @@
                             stroke-linejoin="round" />
                     </svg>
                 </div>
-                <div x-show="IsOpen[group.title]" x-collapse class="w-max grid grid-cols-3 gap-2">
+                <div x-show="IsOpen[group.title]" x-collapse class="w-max grid grid-cols-1 gap-3">
                     <template x-for="c in group.data" :key="c.id">
-                        <div @click="addFilter('texts', c.id)"
-                            :class="isSelected('texts', c.id) ? 'border-mainColor' : 'border-[#E5E5E5]'"
-                            class="cursor-pointer flex gap-1 items-center py-1 px-[10px] rounded-full border transition">
+                        <div @click="addFilter('texts', c)"
+                            class="cursor-pointer flex gap-2 items-center transition">
                             <div class="w-max">
                                 <span x-effect="console.log('Selected Filters:', selectedFilters)"></span>
                                 <span :class="isSelected('texts', c.id) ? 'bg-mainColor text-white' : ''"

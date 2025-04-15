@@ -1,7 +1,7 @@
 <div>
-    <div x-show="context.filters.properties.color.length > 0"
+    <div  x-data="{ open :   false }" x-show="context.filters.properties.color.length > 0"
         class="rounded-lg border border-[#E5E5E5] p-4 flex overflow-hidden flex-col items-start gap-3">
-        <div @click="toggleModal('colorProperties')" class="w-full flex items-center justify-between cursor-pointer">
+        <div @click="open = !open" class="w-full flex items-center justify-between cursor-pointer">
             <span class="font-semibold text-[#434A5B]">الألوان</span>
             <svg :class="modal.type === 'colorProperties' && modal.open ? 'rotate-180' : ''" width="24" height="25" viewBox="0 0 24 25" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
@@ -11,10 +11,10 @@
                     stroke-linejoin="round" />
             </svg>
         </div>
-        <div x-show="modal.type === 'colorProperties' && modal.open" x-collapse class="w-max grid grid-cols-8 gap-2">
+        <div  x-show="open" x-collapse class="w-max grid grid-cols-8 gap-x-2 gap-y-3">
             <template x-for="group in context.filters.properties.color" :key="group.title" >
                 <template x-for="color in group.data" :key="color.id">
-                    <div @click="addFilter('colors', color.id)" class="cursor-pointer w-max">
+                    <div @click="addFilter('colors', color)" class="cursor-pointer w-max">
                         <div class="w-6 h-6 flex items-center justify-center rounded-full p-[3px]"
                         :class="isSelected('colors', color.id) ? 'border-mainColor' : 'border-[#E5E5E5]'" 
                         :style="'border: ' + (isSelected('colors', color.id) ? '2px' : '1px') + ' solid ' + (color.value || '#E5E5E5')">

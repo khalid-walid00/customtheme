@@ -12,17 +12,33 @@
                 </button>
 
             </div>
-            <div class=" w-full flex flex-col gap-4">
-                <span class=" text-2xl4 font-bold text-[#242424]">ما الذي تبحث عنه ؟</span>
-                <div class=" w-full flex rounded-full border border-[#E5E6E6] h-[50px] p-[5px] items-center">
-                    <input :value="window.__qumra__?.context.search?.q" x-model="search" placeholder="ابحث هنا..."
-                        class="flex-1 outline-none h-full px-2 bg-white rounded-full" type="text">
-                    <div x-on:click="window.setSearch(search)"
-                        class=" flex h-[40px] bg-mainColor cursor-pointer w-[40px] rounded-full items-center justify-center">
-                        <i class="fi md:text-[28px] text-2xl text-white fi-rr-search"></i>
+            <div class="w-full flex flex-col gap-4">
+                <span class="text-2xl font-bold text-[#242424]">ما الذي تبحث عنه ؟</span>
+              
+                <div class="w-full flex justify-between items-center border border-[#E5E6E6] h-[50px] p-[5px] rounded-full bg-white">
+                  
+                  <!-- input ياخد كل المساحة المتاحة -->
+                  <input
+                    :value="window.__qumra__?.context.search?.q"
+                    x-model="search"
+                    placeholder="ابحث هنا..."
+                    class=" w-full h-full px-4 bg-transparent outline-none rounded-full"
+                    type="text"
+                  />
+              
+                  <!-- زر البحث -->
+                   <div class=" w-max">
+
+                       <div
+                       x-on:click="window.setSearch(search)"
+                       class="flex h-[40px] w-[40px] cursor-pointer bg-mainColor rounded-full items-center justify-center"
+                       >
+                       <i class="fi md:text-[28px] text-2xl text-white fi-rr-search"></i>
                     </div>
+                  </div>
                 </div>
-            </div>
+              </div>
+              
         </div>
     </div>
 </div>

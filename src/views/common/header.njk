@@ -1,4 +1,4 @@
-<div class="  sticky top-0 z-50">
+<div class="  sticky top-0 z-[999]">
     <div class=" md:block hidden bg-mainColor ">
         <div class=" flex  container items-center justify-between py-3 ">
             <div class=" flex items-center gap-6">
@@ -33,17 +33,19 @@
                 class="cursor-pointer  w-10 h-10 rounded-full  md:hidden flex  items-center justify-center">
                 <i class="fi fi-rr-menu-burger text-white md:text-[28px] text-2xl"></i>
             </div>
-            <img class="md:w-20 w-14  object-contain" :src="data.app.logoUrl" alt="...">
+            <a href="/" class=" w-max">
+                <img class="md:h-[90px] h-[60px]  object-contain" src="{{global.app.logoUrl}}" alt="...">
+            </a>
             <div class="w-7/12 md:flex hidden  items-center gap-6">
                 <div class=" w-full bg-white hidden md:flex rounded-full h-[60px] py-[5px] px-[7px] items-center">
                     <input :value="context.search?.q" x-model="search" placeholder="ابحث هنا..."
                         class="flex-1 outline-none h-full px-2 bg-white rounded-full" type="text">
                     <div x-on:click="window.setSearch(search)"
                         class=" flex h-[50px] bg-mainColor cursor-pointer w-[50px] rounded-full items-center justify-center">
-                        <i class="fi md:text-[28px] text-2xl text-white fi-rr-search"></i>
+                        <i class="fi md:text-[28px] text-xl text-white fi-rr-search"></i>
                     </div>
                 </div>
-                <div style="background-color: color-mix(in srgb, {{global.app.settings.subColor}}, white 15%)"
+                <div x-show="data.app.socialMedia.phone" style="background-color: color-mix(in srgb, {{global.app.settings.subColor}}, white 15%)"
                     class="px-6  rounded-full flex  items-center gap-2 p-2">
                     <i class="fi md:text-[28px] text-2xl text-mainColor fi-rr-phone-call"></i>
                     <div class="flex flex-col gap-1">
@@ -56,7 +58,7 @@
                 <div q-toggle="search"
                     style="background-color: color-mix(in srgb, {{global.app.settings.subColor}}, white 15%)"
                     class="cursor-pointer w-10 h-10  rounded-full flex md:hidden items-center justify-center">
-                    <i class="fi md:text-[28px] text-2xl text-white fi-rr-search"></i>
+                    <i class="fi md:text-[28px] text-xl text-white fi-rr-search"></i>
                 </div>
                 <div q-toggle="cart"
                     style="background-color: color-mix(in srgb, {{global.app.settings.subColor}}, white 15%)"

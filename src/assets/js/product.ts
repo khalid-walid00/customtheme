@@ -31,7 +31,7 @@ function xDataproduct(product: any) {
         },
         addProductToCart(productId: string, quantity?: number) {
             this.loading.addToCart = true;
-                    console.log("addProductToCart")
+            console.log("addProductToCart", productId)
                     window.Qumra.cart.addCartItem(productId, quantity || this.quntity)
                 .then((res: any) => {
                     this.loading.addToCart = false;

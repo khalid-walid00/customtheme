@@ -1,7 +1,7 @@
-<div x-data="xDataCategory()" class="relative">
-  <div x-show="context.filters.categories.length > 0"
+<div  class="relative">
+  <div  x-data="{ open :   false }" x-show="context.filters.categories.length > 0"
     class="rounded-lg border border-[#E5E5E5] p-4 flex flex-col items-start gap-3">
-    <div @click="toggleModal('filterCategory')" class="w-full flex items-center justify-between cursor-pointer">
+    <div @click="open = !open" @click="toggleModal('filterCategory')" class="w-full flex items-center justify-between cursor-pointer">
       <span class="font-semibold text-[#434A5B]">تصنيفات المنتجات</span>
       <svg :class="modal.type === 'filterCategory' && modal.open ? 'rotate-180' : ''" width="24" height="25" viewBox="0 0 24 25" fill="none"
         xmlns="http://www.w3.org/2000/svg">
@@ -11,15 +11,15 @@
           stroke-linejoin="round" />
       </svg>
     </div>
-    <div x-show="modal.type === 'filterCategory' && modal.open" x-collapse class="w-full flex flex-wrap gap-2">
+    <div  x-show="open" x-collapse class="w-full flex flex-wrap gap-2">
       <template x-for="item in context.filters.categories" :key="item.id">
-        <div @click="toggleFilterCategory(item.id)"
-          :class="FilterCategoryIds.includes(item.id) ? 'border-mainColor' : ''"
-          class="cursor-pointer flex truncate gap-1 items-center py-1 px-[10px] rounded-full border border-[#E5E5E5]">
+        <div @click="toggleFilterCategory(item)"
+          :class="FilterCategoryItems.some(i => i.id === item.id) || item.id == context.category.id ? 'border-mainColor' : ''"
+          class="cursor-pointer flex truncate gap-1 items-center p-1 pl-[10px] rounded-full border border-[#E5E5E5]">
           <div class="w-max">
-            <span :class="FilterCategoryIds.includes(item.id) ? 'bg-mainColor text-white' : ''"
+            <span :class="FilterCategoryItems.some(i => i.id === item.id) || item.id == context.category.id ? 'bg-mainColor text-white' : ''"
               class="w-5 h-5 rounded-full border border-[#E5E5E5] flex items-center justify-center">
-              <i x-show="FilterCategoryIds.includes(item.id)"
+              <i x-show="FilterCategoryItems.some(i => i.id === item.id) || item.id == context.category.id"
                 class="fi flex items-center text-xs font-bold fi-rr-check"></i>
             </span>
           </div>
@@ -28,7 +28,7 @@
           </div>
         </div>
       </template>
+      
     </div>
   </div>
 </div>
-<script src={{"filterCategory.js" | assets}}></script>
